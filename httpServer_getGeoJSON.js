@@ -83,7 +83,7 @@ app.get('/getGeoJSON/:tablename/:geomcolumn',function(req,res){
 			var querystring = " SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features FROM ";
 			querystring = querystring + "(SELECT 'Feature' As type ,ST_AsGeoJSON(lg." + req.params.geomcolumn+")::json As geometry, "; 
 			querystring = querystring + "row_to_json((SELECT l FROM (SELECT "+colnames + ") As l )) As properties";
-			querystring = querystring + " FROM "+req.params.tablename+" As lg limit 100 ) As f ";
+			querystring = querystring + " FROM "+req.params.tablename+" As lg limit 10000 ) As f ";
 			console.log(querystring);
 			
 			// run the second query
